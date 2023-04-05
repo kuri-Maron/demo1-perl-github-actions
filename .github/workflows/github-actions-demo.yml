@@ -1,0 +1,21 @@
+name: Perl Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: centos:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Perl and Test::Simple
+        run: |
+          sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* \
+          && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-* \
+          && yum update -y && yum install -y perl perl-core perl-Test-Simple
+      - name: Run tests
+        run: prove -v tests.t
