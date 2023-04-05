@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
-use lib '/usr/local/bin';
+# use lib '/usr/local/bin';
+use lib '.';
 use strict;
 use warnings;
 use Test::More tests => 3;
